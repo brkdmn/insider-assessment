@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: insider-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: insider_db
+    volumes:
+      - ./scripts/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  redis:
+    image: redis:latest
+    container_name: insider-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: .
+      dockerfile: deployment/api/Dockerfile
+    container_name: insider-api
+    user: "1001:0"
+    restart: always
+    depends_on:
+      - mongo
+      - redis
+    ports:
+      - "8080:8080"
+
+  worker:
+    build:
+      context: .
+      dockerfile: deployment/worker/Dockerfile
+    container_name: insider-worker
+    user: "1001:0" 
+    restart: always
+    depends_on:
+      - mongo
+      - redis
+
+volumes:
+  mongo-data:

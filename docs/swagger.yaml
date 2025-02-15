@@ -1,0 +1,50 @@
+basePath: /
+definitions:
+  message.SendingMessage:
+    properties:
+      messageId:
+        type: string
+      sentAt:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Automatic Sending Message Service
+  title: Insider Messaging API
+  version: "2.0"
+paths:
+  /api/messages:
+    get:
+      consumes:
+      - application/json
+      description: Get sending messages
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/message.SendingMessage'
+            type: array
+      summary: Sending Messages
+      tags:
+      - Messages
+  /api/worker/start:
+    post:
+      description: Start worker with redis channel
+      responses: {}
+      summary: Start worker
+      tags:
+      - Worker
+  /api/worker/stop:
+    post:
+      description: Stop worker with redis channel
+      responses: {}
+      summary: Stop worker
+      tags:
+      - Worker
+schemes:
+- http
+swagger: "2.0"

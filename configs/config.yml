@@ -1,0 +1,6 @@
+Database:
+  MongoURI: "mongodb://root:example@mongo:27017/insider_db?authSource=admin"
+  MongoDBName: "insider_db"
+
+Cache:
+  RedisAddr: "redis:6379"

@@ -1,0 +1,75 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Automatic Sending Message Service",
+        "title": "Insider Messaging API",
+        "contact": {},
+        "version": "2.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/messages": {
+            "get": {
+                "description": "Get sending messages",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Sending Messages",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/message.SendingMessage"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/worker/start": {
+            "post": {
+                "description": "Start worker with redis channel",
+                "tags": [
+                    "Worker"
+                ],
+                "summary": "Start worker",
+                "responses": {}
+            }
+        },
+        "/api/worker/stop": {
+            "post": {
+                "description": "Stop worker with redis channel",
+                "tags": [
+                    "Worker"
+                ],
+                "summary": "Stop worker",
+                "responses": {}
+            }
+        }
+    },
+    "definitions": {
+        "message.SendingMessage": {
+            "type": "object",
+            "properties": {
+                "messageId": {
+                    "type": "string"
+                },
+                "sentAt": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
