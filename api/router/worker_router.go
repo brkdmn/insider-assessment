@@ -7,6 +7,6 @@ import (
 )
 
 func WorkerRouter(app fiber.Router) {
-	app.Post("/start", handler.StartWorker)
-	app.Post("/stop", handler.StopWorker)
+	app.Post("/worker/start", handler.StartWorker)
+	app.Post("/worker/stop", handler.StopWorker)
 }

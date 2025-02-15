@@ -64,9 +64,15 @@ func (s *service) GetSendingMessages(ctx context.Context) ([]SendingMessage, err
 
 	var sendingMessages []SendingMessage
 	for _, key := range keys {
-		var sendingMessage SendingMessage
-		err := redis.RedisClient.Get(ctx, key).Scan(&sendingMessage)
+		data, err := redis.RedisClient.Get(ctx, key).Bytes()
 		if err != nil {
+			log.Printf("Redis read error: %v", err)
+			continue
+		}
+
+		var sendingMessage SendingMessage
+		if err := json.Unmarshal(data, &sendingMessage); err != nil {
+			log.Printf("JSON unmarshal error: %v", err)
 			continue
 		}
 		sendingMessages = append(sendingMessages, sendingMessage)

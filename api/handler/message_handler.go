@@ -18,7 +18,7 @@ import (
 func GetMessages(c *fiber.Ctx, service message.Service) error {
 	messages, err := service.GetSendingMessages(context.Background())
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Mesajlar getirilemedi"})
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Messages not found"})
 	}
 	return c.JSON(messages)
 }
