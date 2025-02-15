@@ -86,4 +86,12 @@ curl -X POST http://localhost:8080/worker/stop
 
 ---
 
+## 📝 Webhook Site
+When worker is running you can follow the messages processed with the following link on the webhook site.
+```sh
+https://webhook.site/#!/view/a70ce157-8ab2-4fc4-af79-2a9eaa8e74d2
+```
+
+---
+
 
